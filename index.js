@@ -120,6 +120,13 @@ async function run() {
       res.send(result);
     });
 
+    app.delete("/menus/:id" , async ( req , res) => {
+      const id = req.params.id;
+      const query = { _id : new ObjectId(id)};
+      const result = await menusCollection.deleteOne(query);
+      res.send(result);
+    })
+
     app.post("/menus" , verifyToken , verifyAdmin , async (req , res) => {
       const item = req.body;
       const result = await menusCollection.insertOne(item);
